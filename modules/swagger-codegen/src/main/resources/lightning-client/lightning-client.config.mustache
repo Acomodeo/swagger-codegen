@@ -1,0 +1,14 @@
+import { Injectable, Inject, Optional } from '@angular/core'
+import { LIGHTNING_CLIENT_ENV, LightningClientEnv } from './variables'
+
+@Injectable()
+export class LightningClientConfig {
+    host: string
+
+    constructor(
+        @Optional() @Inject(LIGHTNING_CLIENT_ENV)
+        env: LightningClientEnv,
+    ) {
+        this.host = env ? env.host : ''
+    }
+}

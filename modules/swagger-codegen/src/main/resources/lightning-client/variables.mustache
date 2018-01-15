@@ -1,0 +1,13 @@
+import { InjectionToken } from '@angular/core';
+
+export interface LightningClientEnv {
+    host: string
+}
+
+export const LIGHTNING_CLIENT_ENV = new InjectionToken<LightningClientEnv>('lightning-client.env')
+export const COLLECTION_FORMATS = {
+    'csv': ',',
+    'tsv': '   ',
+    'ssv': ' ',
+    'pipes': '|'
+}
