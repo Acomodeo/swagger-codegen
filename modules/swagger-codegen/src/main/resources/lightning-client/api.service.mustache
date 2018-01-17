@@ -39,28 +39,28 @@ export class {{classname}} {
      * @param selectAccepts optional closure that receives all possible values for the accept header and should return the desired one
      * @param selectConsumes optional closure that receives all possible values for the content type header and should return the desired one
      */
-    public {{nickname}}({{#allParams}}
+    public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}},{{/allParams}}
         observe?: 'body',
         reportProgress?: boolean,
         selectAccept?: (accepts: string[]) => string,
         selectConsumes?: (consumes: string[]) => string,
     ): Observable<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>
-    public {{nickname}}({{#allParams}}
+    public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
         observe?: 'response',
         reportProgress?: boolean,
         selectAccepts?: (accepts: string[]) => string,
         selectConsumes?: (consumes: string[]) => string,
     ): Observable<HttpResponse<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>>
-    public {{nickname}}({{#allParams}}
+    public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
         observe?: 'events',
         reportProgress?: boolean,
         selectAccepts?: (accepts: string[]) => string,
         selectConsumes?: (consumes: string[]) => string,
     ): Observable<HttpEvent<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>>
-    public {{nickname}}({{#allParams}}
+    public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
         observe: any = 'body',
         reportProgress: boolean = false,
@@ -71,7 +71,7 @@ export class {{classname}} {
 
 {{#required}}
         if ({{paramName}} === null || {{paramName}} === undefined) {
-            throw new Error('Required parameter {{paramName}} was null or undefined when calling {{nickname}}.')
+            throw new Error('Required parameter {{paramName}} was null or undefined when calling {{operationId}}.')
         }
 {{/required}}
 {{/allParams}}
