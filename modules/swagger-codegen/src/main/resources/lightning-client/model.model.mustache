@@ -9,8 +9,7 @@ import { {{classname}} } from './{{filename}}'
 {{#description}}
 /**
  * {{{description}}}
- */
-{{/description}}
-{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>modelGeneric}}{{/isEnum}}
+ */{{/description}}
+{{#isAlias}}{{>modelAlias}}{{/isAlias}}{{^isAlias}}{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{>modelGeneric}}{{/isEnum}}{{/isAlias}}
 {{/model}}
 {{/models}}
