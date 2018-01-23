@@ -35,6 +35,7 @@ export class {{classname}} {
      * {{notes}}
      {{#allParams}}* @param {{paramName}} {{description}}
      {{/allParams}}* @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param additionalParams object containing any additional query parameters
      * @param reportProgress flag to report request and response progress.
      * @param selectAccepts optional closure that receives all possible values for the accept header and should return the desired one
      * @param selectConsumes optional closure that receives all possible values for the content type header and should return the desired one
