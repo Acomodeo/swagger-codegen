@@ -41,6 +41,7 @@ export class {{classname}} {
      */
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}},{{/allParams}}
+        additionalParams?: { [string]: string },
         observe?: 'body',
         reportProgress?: boolean,
         selectAccept?: (accepts: string[]) => string,
@@ -48,6 +49,7 @@ export class {{classname}} {
     ): Observable<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
+        additionalParams?: { [string]: string },
         observe?: 'response',
         reportProgress?: boolean,
         selectAccepts?: (accepts: string[]) => string,
@@ -55,6 +57,7 @@ export class {{classname}} {
     ): Observable<HttpResponse<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>>
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
+        additionalParams?: { [string]: string },
         observe?: 'events',
         reportProgress?: boolean,
         selectAccepts?: (accepts: string[]) => string,
@@ -62,6 +65,7 @@ export class {{classname}} {
     ): Observable<HttpEvent<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>>
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
+        additionalParams?: { [string]: string },
         observe: any = 'body',
         reportProgress: boolean = false,
         selectAccepts?: (accepts: string[]) => string,
@@ -76,8 +80,10 @@ export class {{classname}} {
 {{/required}}
 {{/allParams}}
 
-{{#hasQueryParams}}
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()})
+
+        for (let param in additionalParams)
+            queryParameters = queryParameters.append(param, additionalParams[param])
 
 {{#queryParams}}
         {{#isListContainer}}
@@ -103,8 +109,6 @@ export class {{classname}} {
         }
         {{/isListContainer}}
 {{/queryParams}}
-
-{{/hasQueryParams}}
 
         let headers = this.defaultHeaders
 {{#headerParams}}
@@ -190,9 +194,7 @@ export class {{classname}} {
         return this.httpClient.{{httpMethod}}{{^isResponseFile}}<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>{{/isResponseFile}}(`${this.config.host}${this.basePath}{{{path}}}`,{{#isBodyAllowed}}
             {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}{{#hasFormParams}}convertFormParamsToString ? formParams.toString() : formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}}{{/bodyParam}},{{/isBodyAllowed}}
             {
-{{#hasQueryParams}}
                 params: queryParameters,
-{{/hasQueryParams}}
 {{#isResponseFile}}
                 responseType: 'blob',
 {{/isResponseFile}}
