@@ -42,7 +42,7 @@ export class {{classname}} {
      */
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}},{{/allParams}}
-        additionalParams?: { [name: string]: string },
+        additionalParams?: { [name: string]: any },
         observe?: 'body',
         reportProgress?: boolean,
         selectAccept?: (accepts: string[]) => string,
@@ -50,7 +50,7 @@ export class {{classname}} {
     ): Observable<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
-        additionalParams?: { [name: string]: string },
+        additionalParams?: { [name: string]: any },
         observe?: 'response',
         reportProgress?: boolean,
         selectAccepts?: (accepts: string[]) => string,
@@ -58,7 +58,7 @@ export class {{classname}} {
     ): Observable<HttpResponse<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>>
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
-        additionalParams?: { [name: string]: string },
+        additionalParams?: { [name: string]: any },
         observe?: 'events',
         reportProgress?: boolean,
         selectAccepts?: (accepts: string[]) => string,
@@ -66,7 +66,7 @@ export class {{classname}} {
     ): Observable<HttpEvent<{{#returnType}}{{{returnType}}}{{#isResponseTypeFile}}|undefined{{/isResponseTypeFile}}{{/returnType}}{{^returnType}}any{{/returnType}}>>
     public {{operationId}}({{#allParams}}
         {{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}
-        additionalParams?: { [name: string]: string },
+        additionalParams?: { [name: string]: any },
         observe: any = 'body',
         reportProgress: boolean = false,
         selectAccepts?: (accepts: string[]) => string,

@@ -3,6 +3,7 @@ package io.swagger.codegen.languages;
 import io.swagger.codegen.*;
 import io.swagger.models.ModelImpl;
 import io.swagger.models.properties.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -222,6 +223,11 @@ public class LightningClientCodegen extends AbstractTypeScriptClientCodegen {
             return "default.service";
         }
         return camelize(name, true) + ".service";
+    }
+
+    @Override
+    public String toEnumName(CodegenProperty property) {
+        return StringUtils.capitalize(property.name);
     }
 
     @Override
