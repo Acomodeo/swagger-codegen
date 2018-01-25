@@ -19,10 +19,12 @@ import { {{classname}} } from './{{importPath}}';
     ]
 })
 export class LightningClientModule {
-    public static forRoot(): ModuleWithProviders {
+    public static forRoot(
+        configFactory: () => LightningClientConfig,
+    ): ModuleWithProviders {
         return {
             ngModule: LightningClientModule,
-            providers: [ LightningClientConfig ],
+            providers: [{ provide: LightningClientConfig, useFactory: configFactory }],
         }
     }
 
