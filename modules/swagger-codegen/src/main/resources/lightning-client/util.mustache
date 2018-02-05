@@ -57,7 +57,7 @@ export class FilterParam {
  * Set and the remove methods return a modified clone of the current object.
  */
 export class Filter {
-    params: { [id: string]: FilterParam }
+    params: { [id: string]: FilterParam } = {}
 
     private clone() {
         const clone = Filter.constructor()
