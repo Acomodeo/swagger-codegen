@@ -60,7 +60,7 @@ export class Filter {
     params: { [id: string]: FilterParam } = {}
 
     private clone() {
-        const clone = Filter.constructor()
+        const clone = new Filter()
         for (const key in this.params)
             clone.params[key] = this.params[key]
 
