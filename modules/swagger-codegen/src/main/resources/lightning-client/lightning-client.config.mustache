@@ -1,5 +1,7 @@
 export class LightningClientConfig {
-    constructor(
-        public host: string,
-    ) {}
+    host?: string
+
+    constructor(host: string = '') {
+        this.host = host
+    }
 }
