@@ -12,6 +12,8 @@ import java.util.*;
 public class LightningClientCodegen extends AbstractTypeScriptClientCodegen {
     private static final SimpleDateFormat SNAPSHOT_SUFFIX_FORMAT = new SimpleDateFormat("yyyyMMddHHmm");
 
+    public static final String CLIENT_NAME = "clientName";
+
     public LightningClientCodegen() {
         super();
         this.outputFolder = "generated-code/typescript-angular";
@@ -23,6 +25,8 @@ public class LightningClientCodegen extends AbstractTypeScriptClientCodegen {
         typeMapping.put("file", "Blob");
         apiPackage = "api";
         modelPackage = "model";
+
+        this.cliOptions.add(new CliOption(CLIENT_NAME, "The name for the generated client, e.g. Lightning will generate LightningClient"));
     }
 
     @Override
@@ -43,8 +47,16 @@ public class LightningClientCodegen extends AbstractTypeScriptClientCodegen {
         supportingFiles.add(new SupportingFile("models.mustache", modelPackage().replace('.', File.separatorChar), "index.ts"));
         supportingFiles.add(new SupportingFile("apis.mustache", apiPackage().replace('.', File.separatorChar), "index.ts"));
         supportingFiles.add(new SupportingFile("index.mustache", getIndexDirectory(), "index.ts"));
-        supportingFiles.add(new SupportingFile("lightning-client.module.mustache", getIndexDirectory(), "lightning-client.module.ts"));
-        supportingFiles.add(new SupportingFile("lightning-client.config.mustache", getIndexDirectory(), "lightning-client.config.ts"));
+        supportingFiles.add(new SupportingFile(
+            "lightning-client.module.mustache",
+            getIndexDirectory(),
+            additionalProperties.get(CLIENT_NAME).toString().toLowerCase() + "-client.module.ts"
+        ));
+        supportingFiles.add(new SupportingFile(
+            "lightning-client.config.mustache",
+            getIndexDirectory(),
+            additionalProperties.get(CLIENT_NAME).toString().toLowerCase() + "-client.config.ts"
+        ));
         supportingFiles.add(new SupportingFile("variables.mustache", getIndexDirectory(), "variables.ts"));
         supportingFiles.add(new SupportingFile("util.mustache", getIndexDirectory(), "util.ts"));
         supportingFiles.add(new SupportingFile("gitignore", "", ".gitignore"));
@@ -54,6 +66,8 @@ public class LightningClientCodegen extends AbstractTypeScriptClientCodegen {
         supportingFiles.add(new SupportingFile("package.mustache", getIndexDirectory(), "package.json"));
         supportingFiles.add(new SupportingFile("typings.mustache", getIndexDirectory(), "typings.json"));
         supportingFiles.add(new SupportingFile("tsconfig.mustache", getIndexDirectory(), "tsconfig.json"));
+
+        additionalProperties.put("clientNameLower", additionalProperties.get(CLIENT_NAME).toString().toLowerCase());
     }
 
     private String getIndexDirectory() {

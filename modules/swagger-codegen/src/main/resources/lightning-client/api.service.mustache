@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable'
 import { {{classname}} } from '../{{filename}}'
 {{/imports}}
 
-import { LightningClientConfig } from '../lightning-client.config'
+import { {{ clientName }}ClientConfig } from '../{{ clientNameLower }}-client.config'
 import { CustomHttpUrlEncodingCodec, canConsumeForm } from '../util'
 
 {{#operations}}
@@ -26,7 +26,7 @@ export class {{classname}} {
 
     constructor(
         protected httpClient: HttpClient,
-        private config: LightningClientConfig,
+        private config: {{ clientNameLower }}ClientConfig,
     ) {}
 
 {{#operation}}

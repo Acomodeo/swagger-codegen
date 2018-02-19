@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { LightningClientConfig } from './lightning-client.config';
+import { {{ clientName }}ClientConfig } from './{{ clientNameLower }}-client.config';
 
 {{#apiInfo}}
 {{#apis}}
@@ -18,23 +18,23 @@ import { {{classname}} } from './{{importPath}}';
         {{/apis}}{{/apiInfo}}
     ]
 })
-export class LightningClientModule {
+export class {{ clientName }}ClientModule {
     public static forRoot(
-        configFactory: () => LightningClientConfig,
+        configFactory: () => {{ clientName }}ClientConfig,
     ): ModuleWithProviders {
         return {
-            ngModule: LightningClientModule,
-            providers: [{ provide: LightningClientConfig, useFactory: configFactory }],
+            ngModule: {{ clientName }}ClientModule,
+            providers: [{ provide: {{ clientName }}ClientConfig, useFactory: configFactory }],
         }
     }
 
     constructor(
         @Optional() @SkipSelf()
-        parentModule: LightningClientModule,
+        parentModule: {{ clientName }}ClientModule,
     ) {
         if (parentModule) {
             throw new Error(
-                'LightningClientModule is already loaded. ' +
+                '{{ clientName }}ClientModule is already loaded. ' +
                 'Please only import this module from your root module.'
             )
         }
