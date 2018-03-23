@@ -43,7 +43,11 @@ export enum FilterMethod {
  * A single filter parameter that is unique by its combination of key and method.
  */
 export class FilterParam {
-    get id() { return `${this.key}[${this.method}]` }
+    get id() {
+        return this.method === FilterMethod.Is
+            ? this.key
+            : `${this.key}[${this.method}]`
+    }
 
     constructor(
         private method: FilterMethod,
