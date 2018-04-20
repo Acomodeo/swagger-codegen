@@ -29,7 +29,7 @@ export const canConsumeForm: (consumes: string[]) => boolean =
  * Use 'Is' for non comparable types such as string, and 'Eq'/'Gt'/'Lt' for comparable types such as number and date.
  */
 export enum FilterMethod {
-    Is = '',
+    Is = 'IS',
     Exists = 'EXISTS',
     NotExists = 'NEXISTS',
     Like = 'LIKE',
@@ -43,7 +43,7 @@ export enum FilterMethod {
  * A single filter parameter that is unique by its combination of key and method.
  */
 export class FilterParam {
-    get id() {
+    get id(): string {
         return this.method === FilterMethod.Is
             ? this.key
             : `${this.key}[${this.method}]`
@@ -75,8 +75,10 @@ export class Filter {
     toParams(): { [key: string]: string } {
         const result = {}
 
-        for (const key in this.params)
-            result[key] = this.params[key].value
+        for (const key in this.params) {
+            const param = this.params[key]
+            result[param.id] = param.value
+        }
 
         return result
     }
