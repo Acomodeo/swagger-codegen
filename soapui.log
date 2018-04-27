@@ -1,3 +1,0 @@
-2018-04-20 14:44:02,323 WARN  [DefaultSoapUICore] Missing folder [/home/happens/ext] for external libraries
-2018-04-20 14:44:02,511 INFO  [DefaultSoapUICore] initialized soapui-settings from [/home/happens/soapui-settings.xml]
-2018-04-20 14:44:02,832 INFO  [WorkspaceImpl] Loading workspace from [/home/happens/intellij-soapui-workspace.xml]
