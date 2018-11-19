@@ -36,6 +36,8 @@ export enum FilterMethod {
     Eq = 'EQ',
     Gt = 'GT',
     Lt = 'LT',
+    Gte = 'GTE',
+    Lte = 'LTE',
 }
 
 /**
@@ -44,16 +46,31 @@ export enum FilterMethod {
  */
 export class FilterParam {
     get id(): string {
-        return this.method === FilterMethod.Is
-            ? this.key
-            : `${this.key}[${this.method}]`
+        if (this.method === FilterMethod.Is || this.method === FilterMethod.Eq) {
+            return this.key
+        } else {
+            return `${this.key}[${this.method}]`
+        }
+    }
+
+    get queryValue(): string {
+        if (Array.isArray(this.value)) return this.value.join(",")
+        else return this.value
     }
 
     constructor(
         private method: FilterMethod,
         private key: string,
-        public value = '',
-    ) {}
+        public value: string | Array<string> = '',
+    ) {
+        // Arrays are only allowed for Is, Eq, and Like
+        if (
+            (this.method !== FilterMethod.Is &&
+            this.method !== FilterMethod.Eq &&
+            this.method !== FilterMethod.Like) &&
+            Array.isArray(value)
+        ) throw new Error("Arrays as filters values are only allowed for IS, EQ and LIKE")
+    }
 }
 
 /**
@@ -77,7 +94,7 @@ export class Filter {
 
         for (const key in this.params) {
             const param = this.params[key]
-            result[param.id] = param.value
+            result[param.id] = param.queryValue
         }
 
         return result
