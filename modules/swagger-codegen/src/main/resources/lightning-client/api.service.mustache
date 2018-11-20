@@ -97,7 +97,7 @@ export class {{classname}} {
             })
         {{/isCollectionFormatMulti}}
         {{^isCollectionFormatMulti}}
-            queryParameters = queryParameters.set('{{baseName}}', {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']))
+            queryParameters = queryParameters.set('{{baseName}}', {{paramName}}.join(','))
         {{/isCollectionFormatMulti}}
         }
         {{/isListContainer}}
@@ -117,7 +117,7 @@ export class {{classname}} {
 {{#headerParams}}
         {{#isListContainer}}
         if ({{paramName}}) {
-            headers = headers.set('{{baseName}}', {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}']))
+            headers = headers.set('{{baseName}}', {{paramName}}.join(','))
         }
         {{/isListContainer}}
         {{^isListContainer}}
@@ -182,7 +182,7 @@ export class {{classname}} {
             })
         {{/isCollectionFormatMulti}}
         {{^isCollectionFormatMulti}}
-            formParams = formParams.append('{{baseName}}', {{paramName}}.join(COLLECTION_FORMATS['{{collectionFormat}}'])) || formParams
+            formParams = formParams.append('{{baseName}}', {{paramName}}.join(',')) || formParams
         {{/isCollectionFormatMulti}}
         }
         {{/isListContainer}}
