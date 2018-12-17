@@ -3,14 +3,14 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent } from '@angular/common/http'
 
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 
 {{#imports}}
 import { {{classname}} } from '../{{filename}}'
 {{/imports}}
 
 import { {{ clientName }}ClientConfig } from '../{{ clientNameLower }}-client.config'
-import { CustomHttpUrlEncodingCodec, canConsumeForm } from '../util'
+import { canConsumeForm } from '../util'
 
 {{#operations}}
 {{#description}}
@@ -81,7 +81,7 @@ export class {{classname}} {
 {{/required}}
 {{/allParams}}
 
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()})
+        let queryParameters = new HttpParams()
 
         if (additionalParams) {
             for (let param in additionalParams)
@@ -171,24 +171,24 @@ export class {{classname}} {
 {{/isFile}}
 {{/formParams}}
         if (useForm) { formParams = new FormData() }
-        else { formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()}) }
+        else { formParams = new HttpParams() }
 
 {{#formParams}}
         {{#isListContainer}}
         if ({{paramName}}) {
         {{#isCollectionFormatMulti}}
             {{paramName}}.forEach((element) => {
-                formParams = formParams.append('{{baseName}}', <any>element) || formParams
+                formParams.append('{{baseName}}', <any>element)
             })
         {{/isCollectionFormatMulti}}
         {{^isCollectionFormatMulti}}
-            formParams = formParams.append('{{baseName}}', {{paramName}}.join(',')) || formParams
+            formParams.append('{{baseName}}', {{paramName}}.join(','))
         {{/isCollectionFormatMulti}}
         }
         {{/isListContainer}}
         {{^isListContainer}}
         if ({{paramName}} !== undefined) {
-            formParams = formParams.append('{{baseName}}', <any>{{paramName}}) || formParams
+            formParams.append('{{baseName}}', <any>{{paramName}})
         }
         {{/isListContainer}}
 {{/formParams}}
